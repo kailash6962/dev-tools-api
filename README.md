@@ -1,29 +1,27 @@
-# README #
+## API INCLUDED
 
-This README would normally document whatever steps are necessary to get your application up and running.
+1. ** Controllers ** : class controller with validator
 
-### What is this repository for? ###
+2. ** Routes ** : express routes with controller imported
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+2. ** Utils ** : httpStatus for send different common response, common file for validator
 
-### How do I get set up? ###
+## Request Data Type
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+1. ** Raw Json ** : json data
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+## Packages Used
 
-### Who do I talk to? ###
+```
+npm install express body-parser morgan dotenv fs validatorjs
+```
 
-* Repo owner or admin
-* Other community or team contact
+## Software Versions
+
+```
+node 20.11.1
+```
+```
+npm 10.2.4
+```
