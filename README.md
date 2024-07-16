@@ -4,7 +4,7 @@
 
 2. ** Routes ** : express routes with controller imported
 
-2. ** Utils ** : httpStatus for send different common response, common file for validator
+3. ** Utils ** : httpStatus for send different common response, common file for validator
 
 ## Request Data Type
 
@@ -14,7 +14,12 @@
 ## Packages Used
 
 ```
-npm install express body-parser morgan dotenv fs validatorjs
+1. express 
+2. body-parser 
+3. morgan 
+4. dotenv 
+5. fs 
+6. validatorjs
 ```
 
 ## Software Versions
