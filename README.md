@@ -1,13 +1,16 @@
 ### API INCLUDED
 
-1. ** Controllers ** : class controller with validator
-
-2. ** Routes ** : express routes with controller imported
-
-3. ** Utils ** : httpStatus for send different common response, common file for validator
-
-4. ** Config ** :  
+- ** Config ** :  
     - mysql db connection added ![New](https://img.shields.io/badge/New-brightgreen)
+
+- ** Controllers ** : class controller with validator
+
+- ** Database ** : contains migrations and seedings. ![New](https://img.shields.io/badge/New-brightgreen)
+
+- ** Routes ** : express routes with controller imported
+
+- ** Utils ** : httpStatus for send different common response, common file for validator
+
 
 ### Request Data Type
 
