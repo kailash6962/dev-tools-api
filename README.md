@@ -1,4 +1,4 @@
-## API INCLUDED
+### API INCLUDED
 
 1. ** Controllers ** : class controller with validator
 
@@ -6,12 +6,20 @@
 
 3. ** Utils ** : httpStatus for send different common response, common file for validator
 
-## Request Data Type
+4. ** Config ** :  ![New](https://img.shields.io/badge/New-brightgreen)
+    i) mysql db connection added 
+
+### Request Data Type
 
 1. ** Raw Json ** : json data
 
 
-## Packages Used
+### Features
+
+1. Showing error for Development environment in common httpstatus response. ![New](https://img.shields.io/badge/New-brightgreen)
+
+
+### Packages Used
 
 ```
 1. express 
@@ -20,6 +28,8 @@
 4. dotenv 
 5. fs 
 6. validatorjs
+7. knex ![New](https://img.shields.io/badge/New-brightgreen)
+8. mysql2 ![New](https://img.shields.io/badge/New-brightgreen)
 ```
 
 ## Software Versions

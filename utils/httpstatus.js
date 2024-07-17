@@ -6,11 +6,11 @@ class httpstatus{
             "data": data
         });
     }
-    errorResponse(data,res) {
+    errorResponse(e,res) {
         return res.status(500).json({                        
             "code": 500,
             "status": "failure",
-            "data": data
+            "data": process.env.ENVIRONMENT=='production'?"Something went Wrong!! Please Contact administrator for mode details.":e.message
         });
     }
     invalidInputResponse(data,res) {
