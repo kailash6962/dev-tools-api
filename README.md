@@ -21,7 +21,7 @@
 
 ### Packages Used
 
-```
+
 1. express 
 2. body-parser 
 3. morgan 
@@ -30,7 +30,7 @@
 6. validatorjs
 7. knex ![New](https://img.shields.io/badge/New-brightgreen)
 8. mysql2 ![New](https://img.shields.io/badge/New-brightgreen)
-```
+
 
 ## Software Versions
 
