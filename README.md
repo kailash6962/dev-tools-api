@@ -6,8 +6,8 @@
 
 3. ** Utils ** : httpStatus for send different common response, common file for validator
 
-4. ** Config ** :  ![New](https://img.shields.io/badge/New-brightgreen)
-    i) mysql db connection added 
+4. ** Config ** :  
+    - mysql db connection added ![New](https://img.shields.io/badge/New-brightgreen)
 
 ### Request Data Type
 
