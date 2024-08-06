@@ -19,7 +19,7 @@
 
 ### Features
 
-1. Showing error for Development environment in common httpstatus response. ![New](https://img.shields.io/badge/New-brightgreen)
+1. Showing error for Development environment in common httpstatus response.
 
 2. Redis session implemented (APP_NAME and APP_SECRET needed in .env). ![New](https://img.shields.io/badge/New-brightgreen)
 
