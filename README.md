@@ -1,11 +1,11 @@
 ### API INCLUDED
 
 - ** Config ** :  
-    - mysql db connection added ![New](https://img.shields.io/badge/New-brightgreen)
+    - mysql db connection added
 
 - ** Controllers ** : class controller with validator
 
-- ** Database ** : contains migrations and seedings. ![New](https://img.shields.io/badge/New-brightgreen)
+- ** Database ** : contains migrations and seedings.
 
 - ** Routes ** : express routes with controller imported
 
@@ -21,6 +21,8 @@
 
 1. Showing error for Development environment in common httpstatus response. ![New](https://img.shields.io/badge/New-brightgreen)
 
+2. Redis session implemented (APP_NAME and APP_SECRET needed in .env). ![New](https://img.shields.io/badge/New-brightgreen)
+
 
 ### Packages Used
 
@@ -31,8 +33,10 @@
 4. dotenv 
 5. fs 
 6. validatorjs
-7. knex ![New](https://img.shields.io/badge/New-brightgreen)
-8. mysql2 ![New](https://img.shields.io/badge/New-brightgreen)
+7. knex 
+8. mysql2
+9. connect-redis ![New](https://img.shields.io/badge/New-brightgreen)
+10. redis ![New](https://img.shields.io/badge/New-brightgreen)                                   
 
 
 ## Software Versions
