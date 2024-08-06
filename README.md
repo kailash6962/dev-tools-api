@@ -1,11 +1,49 @@
-The `.srf` file extension can refer to several different types of files, depending on the context in which it's used. Here are a few common possibilities:
+### API INCLUDED
 
-1. **Sony Raw Image File**: In the context of digital photography, particularly with Sony cameras, `.srf` files are raw image files. These contain unprocessed image data directly from the camera's sensor.
+- ** Config ** :  
+    - mysql db connection added
 
-2. **Server Response File**: In the context of web servers, `.srf` can refer to a server response file, used in older Microsoft ASP (Active Server Pages) web applications.
+- ** Controllers ** : class controller with validator
 
-3. **Surface File**: In 3D modeling and CAD software, a `.srf` file might contain surface data used for modeling 3D objects.
+- ** Database ** : contains migrations and seedings.
 
-4. **Signal File**: In some scientific and engineering software, `.srf` can be used for files that contain signal data or other forms of data collected from sensors or experiments.
+- ** Routes ** : express routes with controller imported
 
-If you have a specific context or software in mind, I can provide more targeted information.
+- ** Utils ** : httpStatus for send different common response, common file for validator
+
+
+### Request Data Type
+
+1. ** Raw Json ** : json data
+
+
+### Features
+
+1. Showing error for Development environment in common httpstatus response.
+
+2. Redis session implemented (APP_NAME and APP_SECRET needed in .env). ![New](https://img.shields.io/badge/New-brightgreen)
+
+
+### Packages Used
+
+
+1. express 
+2. body-parser 
+3. morgan 
+4. dotenv 
+5. fs 
+6. validatorjs
+7. knex 
+8. mysql2
+9. connect-redis ![New](https://img.shields.io/badge/New-brightgreen)
+10. redis ![New](https://img.shields.io/badge/New-brightgreen)                                   
+
+
+## Software Versions
+
+```
+node 20.11.1
+```
+```
+npm 10.2.4
+```
