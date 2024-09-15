@@ -6,6 +6,17 @@ const morgan = require('morgan');
 const http = require('http');
 const fs = require('fs');
 const app = express();
+const cors = require('cors');
+
+// Configure CORS
+const corsOptions = {
+  origin: 'http://localhost:3000', // Replace with the URL you want to allow
+  methods: 'GET,POST,PUT,DELETE', // Allowed HTTP methods
+  allowedHeaders: 'Content-Type,Authorization', // Allowed headers
+};
+
+// Use the CORS middleware with the options
+app.use(cors(corsOptions));
 
 
 const port = process.env.PORT;

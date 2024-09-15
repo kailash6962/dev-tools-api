@@ -3,16 +3,16 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-    return knex.schema.createTable('sampleusers', function(table) {
+    return knex.schema.createTable('projects', function(table) {
         table.increments('id').primary();
-        table.string('name').notNullable();
-        table.string('age').notNullable();
-        table.string('mobile').notNullable().unique();
+        table.string('project_name').notNullable().unique();
+        table.string('stack').notNullable();
+        table.string('description').notNullable();
         table.boolean('is_active').defaultTo(1);
         table.integer('created_by').nullable();
         table.integer('updated_by').nullable();
         table.timestamps(true, true);
-        table.index(['id','name','mobile']);
+        table.index(['id','project_name']);
     }); 
 };
 

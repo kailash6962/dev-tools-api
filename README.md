@@ -47,3 +47,9 @@ node 20.11.1
 ```
 npm 10.2.4
 ```
+
+## Deployment
+
+```
+pm2 deploy ecosystem.config.js production
+```
