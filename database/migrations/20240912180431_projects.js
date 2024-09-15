@@ -5,9 +5,9 @@
 exports.up = function(knex) {
     return knex.schema.createTable('projects', function(table) {
         table.increments('id').primary();
-        table.string('project_name').notNullable();
+        table.string('project_name').notNullable().unique();
         table.string('stack').notNullable();
-        table.string('description').notNullable().unique();
+        table.string('description').notNullable();
         table.boolean('is_active').defaultTo(1);
         table.integer('created_by').nullable();
         table.integer('updated_by').nullable();

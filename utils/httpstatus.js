@@ -14,8 +14,8 @@ class httpstatus{
         });
     }
     invalidInputResponse(data,res) {
-        return res.status(422).json({
-          code: 422,
+        return res.status(400).json({
+          code: 400,
           status: "error",
           data: data,
         });

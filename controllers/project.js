@@ -5,6 +5,7 @@ validator = require("../utils/validator");
 
 class Project {
     async create(req,res){
+    console.log("📢[project.js:8]: req: ", req.locals);
     try{    
         let rules = {  
             project_name: 'required|string',
@@ -15,7 +16,11 @@ class Project {
         return;
         
         // code block {
-        let insert = await db('projects').insert(req.body);
+        let insert = await db('projects').insert({
+            ...req.body,
+            created_by:req.user.id,
+            updated_by:req.user.id
+        });
         return httpstatus.successResponse(insert?"Data Inserted Successfully":"Failed to Insert",res);
         // code block }
 

@@ -12,7 +12,7 @@ class Sample {
         }
         if(validator.validate(req,res,rules))
         return;
-        
+    
         // code block {
 
         return httpstatus.successResponse(req.body,res);
@@ -20,7 +20,7 @@ class Sample {
         // code block }
 
 
-    } catch(e) { console.log(e); return httpstatus.errorResponse('Internal Server Error', res)}
+    } catch(e) { console.log(e); return httpstatus.errorResponse(e, res)}
     }
 }
 
