@@ -11,7 +11,7 @@ class Auth {
         let rules = {  
             first_name: 'required|string',
             last_name: 'required|string',
-            companmy: 'string',
+            company: 'string',
             email: 'required|email',
             password: 'required|string',
         }
