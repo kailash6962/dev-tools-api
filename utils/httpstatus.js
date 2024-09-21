@@ -7,18 +7,13 @@ class httpstatus{
         });
     }
     errorResponse(e,res) {
-        return res.status(500).json({                        
-            "code": 500,
-            "status": "failure",
-            "data": process.env.ENVIRONMENT=='production'?"Something went Wrong!! Please Contact administrator for mode details.":e.message
-        });
+        let errorObj={}; 
+        errorObj.code = e.code;
+        errorObj.message = process.env.ENVIRONMENT=='production'?"Something went Wrong!! Please Contact administrator for mode details":e.message;
+        return res.status(500).json({error:{errors:errorObj}});
     }
     invalidInputResponse(data,res) {
-        return res.status(400).json({
-          code: 400,
-          status: "error",
-          data: data,
-        });
+        return res.status(400).json({error: data});
     }
 }
 module.exports = new httpstatus();

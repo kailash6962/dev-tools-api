@@ -11,7 +11,7 @@ class Auth {
         let rules = {  
             first_name: 'required|string',
             last_name: 'required|string',
-            companmy: 'string',
+            company: 'string',
             email: 'required|email',
             password: 'required|string',
         }
@@ -23,7 +23,7 @@ class Auth {
         
         const existingUser = await db('users').where({ email:data.email }).first();
         if (existingUser) {
-            return httpstatus.invalidInputResponse('User already exists',res);
+            return httpstatus.invalidInputResponse({error:'User already exists'},res);
         }
         const hashedPassword = await bcrypt.hash(data.password, 10);
 
