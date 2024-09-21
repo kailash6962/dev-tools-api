@@ -10,7 +10,7 @@ function auth(req, res, next) {
   
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
       if (err) {
-        return httpstatus.errorResponse('Invalid token!',res);
+        return httpstatus.errorResponse({code:"INVAUTH",message:'Invalid token!'},res);
       }
   
       req.user = user;

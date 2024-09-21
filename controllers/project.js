@@ -5,7 +5,6 @@ validator = require("../utils/validator");
 
 class Project {
     async create(req,res){
-    console.log("📢[project.js:8]: req: ", req.locals);
     try{    
         let rules = {  
             project_name: 'required|string',
@@ -39,8 +38,8 @@ class Project {
         return;
         
         // code block {
-        let read = await db('projects').where(req.body);
-        return httpstatus.successResponse(read.length>0?{count:read.length,data:read}:{count:read.length,data:"No Data Found"},res);
+        let read = await db('projects').where(req.body).where({created_by:req.user.id});
+        return httpstatus.successResponse({count:read.length,data:read},res);
         // code block }
 
 
