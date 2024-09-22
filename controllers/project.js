@@ -1,5 +1,6 @@
 const httpstatus = require("../utils/httpstatus"),
 db = require("../config/mysql").knex,
+{updateFields,insertFields} = require("../utils/common"),
 validator = require("../utils/validator");
 
 
@@ -17,10 +18,9 @@ class Project {
         // code block {
         let insert = await db('projects').insert({
             ...req.body,
-            created_by:req.user.id,
-            updated_by:req.user.id
+            ...insertFields(req.user)
         });
-        return httpstatus.successResponse(insert?"Data Inserted Successfully":"Failed to Insert",res);
+        return httpstatus.successResponse({message:insert?"Data Inserted Successfully":"Failed to Insert"},res);
         // code block }
 
 
@@ -58,9 +58,8 @@ class Project {
         
         // code block {
         let data = req.body;
-        data.updated_at = db.fn.now();
-        let update = await db('projects').where({id:data.id}).update(data);
-        return httpstatus.successResponse(update?"Data Updated Successfully":"Failed to Update",res);
+        let update = await db('projects').where({id:data.id}).update({...data,...updateFields(req.user)});
+        return httpstatus.successResponse({message:update?"Data Updated Successfully":"Failed to Update"},res);
         // code block }
 
 
@@ -76,7 +75,7 @@ class Project {
         
         // code block {
         let deletedata = await db('projects').where({id:req.body.id}).delete();
-        return httpstatus.successResponse(deletedata?"Data Deleted Successfully":"Failed to Delete",res);
+        return httpstatus.successResponse({message:deletedata?"Data Deleted Successfully":"Failed to Delete"},res);
         // code block }
 
 
