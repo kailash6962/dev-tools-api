@@ -38,7 +38,6 @@ class Common {
     Object.keys(data).map(singleRow => {
       if (tableColumns.includes(singleRow) && data[singleRow]!='')
       updatedObj[(setTblPrefix?setTblPrefix+'.':'')+singleRow] = data[singleRow];
-    // }
     })
     return updatedObj;
   }
