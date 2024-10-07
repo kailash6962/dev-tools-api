@@ -1,6 +1,7 @@
 const httpstatus = require("../utils/httpstatus"),
 db = require("../config/mysql").knex,
 {updateFields,insertFields,extractExistingColumns} = require("../utils/common"),
+{ v4: uuidv4 } = require('uuid'),
 validator = require("../utils/validator");
 
 
@@ -18,6 +19,7 @@ class MockServer {
         // code block {
         let insert = await db('MockServer').insert({
             ...req.body,
+            server_code:uuidv4(),
             ...insertFields(req.user)
         });
         return httpstatus.successResponse({message:insert?"Data Inserted Successfully":"Failed to Insert",id:insert[0]},res);
@@ -135,7 +137,10 @@ class MockServerRequests {
         
         // code block {
         let reqdata = await extractExistingColumns('MockServerRequest',req.body);
-        let read = await db('MockServerRequest').where(reqdata)
+        let read = await db('MockServerRequest as msr')
+        .select('msr.*',db.raw(`CONCAT('${process.env.API_URL+process.env.MOCK_SERVER_PREFIX}', ms.server_code,'/',msr.url_slug) as full_mock_url`))
+        .leftJoin('MockServer as ms', 'msr.mock_server_id', 'ms.id').where(reqdata);
+        // let read = await db('MockServerRequest').where(reqdata)
         return httpstatus.successResponse({count:read.length,data:read},res);
         // code block }
 
@@ -187,7 +192,42 @@ class MockServerRequests {
     }
 }
 
+class MockAPICall {
+    async mockrequestCall(req,res){
+        try {
+            const { server_code, slug } = req.params;
+        
+            const getMockAPICall = await db('MockServerRequest as msr')
+                .leftJoin('MockServer as ms', 'msr.mock_server_id', 'ms.id')
+                .where({ 'ms.server_code': server_code, 'msr.url_slug': slug, 'msr.method':req.method })
+                .first();
+        
+            if (getMockAPICall) {
+                const delay = getMockAPICall.delay || 0;  // Default delay if not specified in the DB
+        
+                setTimeout(() => {
+                    return res.status(getMockAPICall.response_code).send(getMockAPICall.response);
+                }, delay);
+        
+            } else {
+                return res.status(404).json({
+                    status: "Not Found",
+                    message: "Endpoint Not Found"
+                });
+            }
+        
+        } catch (error) {
+                return res.status(500).json({
+                status: "error",
+                message: "An internal server error occurred",
+                error: error.message
+            });
+        }    
+    }
+}
+
 module.exports = {
     MockServer,
     MockServerRequests,
+    MockAPICall
 }
