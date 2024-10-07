@@ -70,7 +70,7 @@ try{
   console.warn("!! NOTE !! : No route files found.");
 
   filenames.forEach(file => {
-    app.use(`/api/v1/`, require(`./routes/${file}`))
+    app.use(`/api/`, require(`./routes/${file}`))
   });
 
 } catch (err){
