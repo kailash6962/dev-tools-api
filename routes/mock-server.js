@@ -5,6 +5,7 @@ const {
     MockServer,
     MockServerRequests,
     MockAPICall,
+    MockPostman,
  } = require('../controllers/mock-server');
 
 const MockServerController = new MockServer();
@@ -20,7 +21,9 @@ router.post('/mockserverrequest-update',auth,  MockServerRequestsController.upda
 router.post('/mockserverrequest-delete',auth, MockServerRequestsController.delete);
 
 const MockAPICallController = new MockAPICall();
-router.get('/mockserver/:server_code/:slug',MockAPICallController.mockrequestCall);
-router.post('/mockserver/:server_code/:slug',MockAPICallController.mockrequestCall);
+router.all('/mockserver/:server_code/:slug',MockAPICallController.mockrequestCall);
+
+const MockPostmanController = new MockPostman();
+router.get('/download-postman-json/:server_code/',MockPostmanController.downloadPostman);
 
 module.exports = router;

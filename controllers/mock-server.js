@@ -2,6 +2,9 @@ const httpstatus = require("../utils/httpstatus"),
 db = require("../config/mysql").knex,
 {updateFields,insertFields,extractExistingColumns} = require("../utils/common"),
 { v4: uuidv4 } = require('uuid'),
+fs = require('fs'),
+path = require('path'),
+{ Readable } = require('stream'),
 validator = require("../utils/validator");
 
 
@@ -136,7 +139,7 @@ class MockServerRequests {
         return;
         
         // code block {
-        let reqdata = await extractExistingColumns('MockServerRequest',req.body);
+        let reqdata = await extractExistingColumns('MockServerRequest',req.body,'msr');
         let read = await db('MockServerRequest as msr')
         .select('msr.*',db.raw(`CONCAT('${process.env.API_URL+process.env.MOCK_SERVER_PREFIX}', ms.server_code,'/',msr.url_slug) as full_mock_url`))
         .leftJoin('MockServer as ms', 'msr.mock_server_id', 'ms.id').where(reqdata);
@@ -226,8 +229,76 @@ class MockAPICall {
     }
 }
 
+class MockPostman {
+    async downloadPostman(req,res) {
+        const { server_code, slug } = req.params;
+
+        const mockServer = await db('MockServer').where({server_code}).first();
+        const mockData = await db('MockServerRequest as msr')
+        .select('msr.*',db.raw(`CONCAT('${process.env.API_URL+process.env.MOCK_SERVER_PREFIX}', ms.server_code,'/',msr.url_slug) as full_mock_url`))
+        .leftJoin('MockServer as ms', 'msr.mock_server_id', 'ms.id').where({'ms.server_code':server_code});
+
+        // Generate Postman collection structure
+        const postmanCollection = {
+        info: {
+            name: mockServer.name,
+            schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+        },
+        item: mockData.map((mock) => ({
+            name: mock.name,
+            request: {
+            method: mock.method,
+            header: [
+                {
+                key: 'Content-Type',
+                value: mock.response_type || 'application/json'
+                }
+            ],
+            url:mock.full_mock_url,
+            description: mock.description || '',
+            },
+            response: [
+            {
+                name: mock.name,
+                originalRequest: {
+                method: mock.method,
+                url:mock.full_mock_url
+                },
+                status: mock.response_code,
+                code: mock.response_code,
+                _postman_previewlanguage: 'json',
+                header: [
+                {
+                    key: 'Content-Type',
+                    value: mock.response_type || 'application/json'
+                }
+                ],
+                body: mock.response
+            }
+            ]
+        })),
+        };
+
+        const fileName = `${mockServer.name}-mock-server-postman-collection.json`;
+        const fileContent = JSON.stringify(postmanCollection, null, 2);
+        
+        // Convert file content to a readable stream
+        const fileStream = new Readable();
+        fileStream.push(fileContent);
+        fileStream.push(null); // Signify the end of the stream
+        
+        // Set the headers to trigger a download in the browser
+        res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+        res.setHeader('Content-Type', 'application/json');
+        
+        // Pipe the stream to the response
+        fileStream.pipe(res);
+    }
+}
+
 module.exports = {
     MockServer,
     MockServerRequests,
-    MockAPICall
+    MockAPICall,
+    MockPostman,
 }
