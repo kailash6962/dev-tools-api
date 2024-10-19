@@ -207,7 +207,17 @@ class MockAPICall {
         
             if (getMockAPICall) {
                 const delay = getMockAPICall.delay || 0;  // Default delay if not specified in the DB
-        
+
+                await db('RequestLogs')
+                    .insert({
+                        mock_request_id: getMockAPICall.id,
+                        request_count: 1
+                    })
+                    .onConflict('mock_request_id')
+                    .merge({
+                        request_count: db.raw('?? + 1', ['request_count'])
+                    });
+
                 setTimeout(() => {
                     return res.status(getMockAPICall.response_code).send(getMockAPICall.response);
                 }, delay);
