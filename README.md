@@ -152,12 +152,9 @@ REDIS_PORT=6379
 
 🚀 Deployment (Production)
 This project supports zero-downtime deployment via PM2:
-
-bash
-Always show details
-
-Copy
+```
 pm2 deploy ecosystem.config.js production
+```
 Make sure your ecosystem.config.js has the correct SSH & server info.
 
 📄 License
